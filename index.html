@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forge | Workout Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="brand">
+            <h2>FORGE</h2>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="nav-item active" data-target="view-dashboard">Dashboard</a>
+            <a href="#" class="nav-item" data-target="view-history">History</a>
+            <a href="#" class="nav-item" data-target="view-progress">Progress</a>
+            <a href="#" class="nav-item" data-target="view-templates">Templates</a>
+        </div>
+        <button class="btn btn-accent btn-nav-add" id="navAddWorkout">✚ Add Workout</button>
+    </nav>
+
+    <nav class="bottom-nav" id="bottomNav">
+        <a href="#" class="nav-item active" data-target="view-dashboard">Dash</a>
+        <a href="#" class="nav-item" data-target="view-history">History</a>
+        <button class="btn-floating" id="mobileAddWorkout">✚</button>
+        <a href="#" class="nav-item" data-target="view-progress">Stats</a>
+        <a href="#" class="nav-item" data-target="view-templates">Plans</a>
+    </nav>
+
+    <main class="main-content">
+        
+        <section id="view-dashboard" class="view active">
+            <div class="header-row">
+                <h1>DASHBOARD</h1>
+                <p class="subtitle">Your weekly overview</p>
+            </div>
+            
+            <div class="card calendar-card">
+                <h3>This Week</h3>
+                <div class="calendar-strip" id="calendarStrip">
+                    </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="card stat-card">
+                    <div class="stat-title">Days Active</div>
+                    <div class="stat-value" id="statDaysActive">0</div>
+                </div>
+                <div class="stat-card card">
+                    <div class="stat-title">Total Duration</div>
+                    <div class="stat-value"><span id="statDuration">0</span> <small>min</small></div>
+                </div>
+                <div class="stat-card card">
+                    <div class="stat-title">Calories Burned</div>
+                    <div class="stat-value" id="statCalories">0</div>
+                </div>
+            </div>
+
+            <div class="recent-header">
+                <h2>RECENT WORKOUTS</h2>
+            </div>
+            <div class="history-list" id="dashboardRecentList">
+                </div>
+        </section>
+
+        <section id="view-history" class="view">
+            <div class="header-row">
+                <h1>WORKOUT HISTORY</h1>
+                <p class="subtitle">All your past sessions</p>
+            </div>
+            <div class="card">
+                <div class="history-list full-history" id="fullHistoryList">
+                    </div>
+            </div>
+        </section>
+
+        <section id="view-progress" class="view">
+            <div class="header-row">
+                <h1>PROGRESS</h1>
+                <p class="subtitle">Last 8 Weeks Performance</p>
+            </div>
+            <div class="charts-grid">
+                <div class="card chart-card">
+                    <h3>Weekly Frequency (Sessions)</h3>
+                    <div class="svg-container" id="chartFreq"></div>
+                </div>
+                <div class="card chart-card">
+                    <h3>Total Volume (lbs)</h3>
+                    <div class="svg-container" id="chartVolume"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-templates" class="view">
+            <div class="header-row">
+                <h1>TEMPLATES</h1>
+                <p class="subtitle">Start a pre-built routine</p>
+            </div>
+            <div class="template-grid">
+                <div class="card template-card" onclick="app.startTemplate('Push Day')">
+                    <h3>Push Day</h3>
+                    <p>Chest, Shoulders, Triceps</p>
+                    <button class="btn btn-outline">Start</button>
+                </div>
+                <div class="card template-card" onclick="app.startTemplate('Pull Day')">
+                    <h3>Pull Day</h3>
+                    <p>Back, Biceps, Rear Delts</p>
+                    <button class="btn btn-outline">Start</button>
+                </div>
+                <div class="card template-card" onclick="app.startTemplate('Leg Day')">
+                    <h3>Leg Day</h3>
+                    <p>Quads, Hamstrings, Calves</p>
+                    <button class="btn btn-outline">Start</button>
+                </div>
+                <div class="card template-card" onclick="app.startTemplate('Full Body')">
+                    <h3>Full Body</h3>
+                    <p>Compound movements</p>
+                    <button class="btn btn-outline">Start</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-add-workout" class="view add-workout-view">
+            <div class="header-row">
+                <h1>LOG WORKOUT</h1>
+                <div class="step-indicator" id="stepIndicator">Step 1 of 3</div>
+            </div>
+            
+            <div class="wizard-container card">
+                
+                <div id="wizard-step-1" class="wizard-step active">
+                    <h3>Choose Workout Type</h3>
+                    <div class="type-grid">
+                        <div class="type-card" data-type="Strength">
+                            <h4>Strength</h4>
+                        </div>
+                        <div class="type-card" data-type="Cardio">
+                            <h4>Cardio</h4>
+                        </div>
+                        <div class="type-card" data-type="HIIT">
+                            <h4>HIIT</h4>
+                        </div>
+                        <div class="type-card" data-type="Flexibility">
+                            <h4>Flexibility</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="wizard-step-2" class="wizard-step">
+                    <div class="exercise-select-area">
+                        <input type="text" id="exerciseSearch" placeholder="Search exercises...">
+                        <div class="exercise-results" id="exerciseResults"></div>
+                    </div>
+                    
+                    <div class="selected-exercises">
+                        <h3>Workout Plan</h3>
+                        <div id="activeExercisesList"></div>
+                    </div>
+
+                    <div class="wizard-actions">
+                        <button class="btn btn-outline" id="btnPrev2">Back</button>
+                        <button class="btn btn-accent" id="btnNext2">Review Workout</button>
+                    </div>
+                </div>
+
+                <div id="wizard-step-3" class="wizard-step">
+                    <h3>Workout Summary</h3>
+                    
+                    <div class="summary-details">
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" id="summaryDate">
+                        </div>
+                        <div class="form-group">
+                            <label>Total Duration (minutes)</label>
+                            <input type="number" id="summaryDuration" value="45" min="1">
+                        </div>
+                    </div>
+
+                    <div class="summary-stats">
+                        <div class="s-stat">
+                            <span>Type</span>
+                            <strong id="sumType">-</strong>
+                        </div>
+                        <div class="s-stat">
+                            <span>Exercises</span>
+                            <strong id="sumExCount">0</strong>
+                        </div>
+                        <div class="s-stat">
+                            <span>Total Volume</span>
+                            <strong><span id="sumVolume">0</span> lbs</strong>
+                        </div>
+                    </div>
+
+                    <div class="wizard-actions">
+                        <button class="btn btn-outline" id="btnPrev3">Back</button>
+                        <button class="btn btn-accent" id="btnSaveWorkout">Save Workout</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
